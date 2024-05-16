@@ -1,18 +1,16 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ViewComponent } from './pages/view/view.component';
 import { FormComponent } from './pages/form/form.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/view', pathMatch: 'full' }, // Rota padrão
-  { path: 'view', component: ViewComponent },
+  { path: '', redirectTo: 'form', pathMatch: 'full' },
   { path: 'form', component: FormComponent },
+  { path: 'view', component: ViewComponent },
 ];
 
-
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {useHash:true} )],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

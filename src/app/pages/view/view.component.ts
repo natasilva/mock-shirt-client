@@ -1,12 +1,18 @@
 import { Component } from '@angular/core';
+import { NavigationService } from '../../core/services/navigation.service';
 
 @Component({
   selector: 'app-view',
-  //standalone: true,
-  //imports: [],
   templateUrl: './view.component.html',
   styleUrl: './view.component.scss'
 })
 export class ViewComponent  {
-  
+
+  constructor(
+    private navigationService: NavigationService
+  ) {}
+
+  goToForm () {
+    this.navigationService.navigate("/form")
+  }
 }
