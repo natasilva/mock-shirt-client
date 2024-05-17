@@ -1,4 +1,11 @@
 <div class="mt-3 ps-3">
     <p>Estamos na view</p>    
     <button mat-flat-button class="me-3" (click)="goToForm()" color="warn">Voltar para o form</button>
+    <button mat-flat-button (click)="generatePdf()">Gerar PDF</button>
+</div>
+
+<div id="print-section-0">
+    <ng-container *ngIf="isPrinting">
+        <app-estimate [data]="estimateData"></app-estimate>
+    </ng-container>
 </div>

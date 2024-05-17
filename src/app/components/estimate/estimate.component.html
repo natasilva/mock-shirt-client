@@ -1,0 +1,26 @@
+<div class="d-flex justify-content-center mb-5 pt-5 fs-1">
+  <h1>Orçamento</h1>
+</div>
+
+<div class="d-flex flex-column w-auto justify-content-start mb-5 ms-5 fs-3">
+  <div>Malha: {{ data.material }}</div>
+  <div>Cor: {{ data.color }}</div>
+  <div>Quantidade: {{ data.quantity }}</div>
+  <div>Valor Total: {{ data.total_value | currency:'R$ ' }}</div>
+</div>
+
+<div class="d-flex flex-column align-items-center justify-content-center">
+  <ng-container *ngFor="let shirt of data?.shirts">
+    <div class="d-flex flex-row align-items-start mb-5">
+      <div class="flex-column align-items-start border">
+        <img class="w-auto" style="height: 350px;" [src]="blobToUrl(shirt.img_url)">
+      </div>
+      <div class="d-flex flex-column w-auto ms-5 fs-2">
+        <div>Tamanho: {{ shirt.size }}</div>
+        <div>Gola: {{ shirt.collar }}</div>
+        <div>Manga: {{ shirt.sleeve }}</div>
+        <div>{{ shirt.quantity }} x {{ shirt.unit_value | currency:'R$ ' }} = {{ (shirt.quantity * shirt.unit_value) | currency: 'R$ ' }} </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
