@@ -18,7 +18,7 @@
           <div class="mb-3">
           <label for="corSelect" class="form-label">Cor:</label>
             <select id="corSelect" class="form-select">
-              <option *ngFor="let color of colors$" [value]="color.id">{{ color.name }}</option>
+              <option *ngFor="let color of colors$ | async" [value]="color.id">{{ color.name }}</option>
             </select>
           </div>
 
