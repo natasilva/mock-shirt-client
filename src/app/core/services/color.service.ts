@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, lastValueFrom } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -12,6 +12,6 @@ export class ColorService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.url}/colors`,{});
+    return this.http.get<any[]>(`${this.url}/colors`);
   }
 }

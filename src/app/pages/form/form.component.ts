@@ -9,28 +9,25 @@ import { Observable } from 'rxjs';
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
 })
-export class FormComponent implements OnInit { 
+export class FormComponent { 
   quantidadeLogos = 1;
+
   colors$ = new Observable<any[]>()
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private navigationService: NavigationService,
     private colorService: ColorService
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.listColors()
   }
 
    listColors() {
-      this.colors$ =  this.colorService.list();
-      return this.colors$
+    this.colors$ = this.colorService.list()
   }
   
-
   goToView () {
-
+    this.navigationService.navigate('/view');
   }
   
   increaseQuantity() {
