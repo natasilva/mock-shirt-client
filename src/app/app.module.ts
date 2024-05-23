@@ -6,6 +6,11 @@ import {MatButtonModule} from '@angular/material/button';
 import { ViewComponent } from './pages/view/view.component';
 import { FormComponent } from './pages/form/form.component';
 import { EstimateComponent } from './components/estimate/estimate.component';
+import { MatCardModule } from '@angular/material/card';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +21,11 @@ import { EstimateComponent } from './components/estimate/estimate.component';
   imports: [
     AppRoutingModule,
     BrowserModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

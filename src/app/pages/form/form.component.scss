@@ -1,0 +1,27 @@
+.container {
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+mat-card {
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+mat-card-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+mat-card-title {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.generate-button {
+  width: 100%;
+}

@@ -1,4 +1,76 @@
-<div class="mt-3 ps-3">
-    <p>Estamos no form</p>
-    <button mat-flat-button class="me-3" (click)="goToView()" color="primary">Ir para a View</button>
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+      <mat-card>
+        <mat-card-header class="text-center">
+          <mat-card-title>Mock-Shirt</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form [formGroup]="form" novalidate>
+            <div class="mb-3">
+              <label for="malhaSelect" class="form-label">Malha:</label>
+              <select id="malhaSelect" class="form-select" formControlName="malha">
+                <option *ngFor="let material of materials$ | async" [value]="material.id">{{ material.name }}</option>
+              </select>
+              <div *ngIf="form.get('malha').touched && form.get('malha').invalid" class="text-danger">
+                Este campo é obrigatório.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="corSelect" class="form-label">Cor:</label>
+              <select id="corSelect" class="form-select" formControlName="cor">
+                <option *ngFor="let color of colors$ | async" [value]="color.id">{{ color.name }}</option>
+              </select>
+              <div *ngIf="form.get('cor').touched && form.get('cor').invalid" class="text-danger">
+                Este campo é obrigatório.
+              </div>
+            </div>
+
+            <form [formGroup]="form">
+              <div class="mb-3">
+                <label for="logoUpload" class="form-label">Logo:</label>
+                <input type="file" id="logoUpload" class="form-control" (change)="onFileChange($event)">
+                <div *ngIf="form.get('logo').invalid && form.get('logo').touched" class="text-danger">
+                  <div *ngIf="form.get('logo').errors?.required">
+                    Formato de arquivo inválido. Aceito apenas jpg, png, pdf.
+                  </div>
+                </div>
+              </div>
+            </form>
+            
+
+            <div class="mb-3">
+              <label class="form-label">Logo na Manga:</label><br>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" [value]="true" formControlName="logoManga" id="simRadio" value="true">
+                <label class="form-check-label" for="simRadio">Sim</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" [value]="false" formControlName="logoManga" id="naoRadio" value="false" checked>
+                <label class="form-check-label" for="naoRadio">Não</label>
+              </div>
+              <div *ngIf="form.get('logoManga').touched && form.get('logoManga').invalid" class="text-danger">
+                Este campo é obrigatório.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="quantidadeLogos" class="form-label">Quantidade de cores na logo:</label>
+              <div class="d-flex align-items-center">
+                <div class="input-group" style="width: 30%;">
+                  <button class="btn btn-outline-secondary" type="button" (click)="decreaseQuantity()">-</button>
+                  <input type="number" id="quantidadeLogos" class="form-control text-center" formControlName="quantidadeLogos" readonly>
+                  <button class="btn btn-outline-secondary" type="button" (click)="increaseQuantity()">+</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </mat-card-content>
+        <mat-card-actions class="d-flex justify-content-center">
+          <button mat-flat-button color="primary" class="btn-lg rounded-pill px-4" (click)="goToView()">Gerar</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
 </div>
