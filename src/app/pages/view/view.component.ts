@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationService } from '../../core/services/navigation.service';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -8,9 +8,10 @@ import html2canvas from 'html2canvas';
   templateUrl: './view.component.html',
   styleUrl: './view.component.scss'
 })
-export class ViewComponent  {
+export class ViewComponent implements OnInit{
 
   isPrinting: boolean = false;
+  data: any[] = []
 
   estimateData = {
     quantity: 8,
@@ -25,8 +26,17 @@ export class ViewComponent  {
   };
 
   constructor(
-    private navigationService: NavigationService
-  ) {}
+    private navigationService: NavigationService,
+  ) {
+  }
+
+  ngOnInit(): void {
+    if (history.state && history.state.data) {
+      this.data = history.state.data;
+    } else {
+      this.data = [];
+    }
+  }
 
   goToForm () {
     this.navigationService.navigate("/form")

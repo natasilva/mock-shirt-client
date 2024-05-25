@@ -1,3 +1,5 @@
+// colocar o estilo nas classes do html utilizando o bootstrap 
+
 .container {
   align-items: center;
   justify-content: center;
@@ -8,18 +10,22 @@ mat-card {
   width: 100%;
   max-width: 500px;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 mat-card-header {
-  text-align: center;
+  display: flex;
+  justify-content: center;
   margin-bottom: 20px;
+  font-weight: bold;
+  padding: 0; 
 }
 
 mat-card-title {
-  font-family: 'Segoe UI', Roboto, sans-serif;
-  font-size: 24px;
+  font-size: 26px; 
   font-weight: bold;
+  text-align: center; 
+  width: 100%; 
 }
 
 .generate-button {
