@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
 export class EstimateComponent {
   @Input() data: any;
 
-  blobToUrl(blob: Blob) {
-    return URL.createObjectURL(blob);
-  }
+  // blobToUrl(blob: Blob) {
+  //   return URL.createObjectURL(blob);
+  // }
 }

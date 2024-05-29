@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationService } from '../../core/services/navigation.service';
+import { NavigationService } from '../../core/utils/navigation.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ColorService } from '../../core/services/color.service';
 import { Observable } from 'rxjs';
@@ -19,7 +19,6 @@ export class FormComponent implements OnInit {
   materials$ = new Observable<any[]>()
   form: any;
 
-
   constructor(
     private formBuilder: FormBuilder,
     private navigationService: NavigationService,
@@ -38,6 +37,7 @@ export class FormComponent implements OnInit {
       sleeveLogo: [false, Validators.required],
       logoColorsQuantity: [1, [Validators.required, Validators.min(1), Validators.max(3)]]
     });
+
     this.listColors();
     this.listMaterials();
   }
@@ -64,27 +64,29 @@ export class FormComponent implements OnInit {
     }
   }
 
-  
   logoFileValidator(control: { value: any; }): { [key: string]: any } | null {
     const file = control.value;
+
     if (file) {
       const validTypes = ['image/jpeg', 'image/png'];
       if (!validTypes.includes(file.type)) {
         return { invalidFileType: true };
       }
     }
+
     return null;
   }
   
   selectedFile: File | null = null;
 
-
   onFileChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     const fileList: FileList | null = inputElement.files;
+
     if (fileList && fileList.length > 0) {
       const file = fileList[0];
       const validTypes = ['image/jpeg', 'image/png'];
+  
       if (validTypes.includes(file.type)) {
         this.selectedFile = file;
         this.form.get('file')!.setValue(file);
@@ -109,8 +111,9 @@ export class FormComponent implements OnInit {
     formData.append('logoColorsQuantity', this.form.get('logoColorsQuantity').value);
 
     this.shirtService.processShirt(formData).subscribe({
-      next: (response) => { // fazer redirecionamento pelo navigationService 
-        this.router.navigate(['/view'], { state: { data: response } });
+      next: (response) => {
+        this.navigationService.navigate(['/view'], { state: { data: response } })
+        // this.router.navigate(['/view'], { state: { data: response } });
       },
       error: (error) => {
         console.error('Erro ao processar a camiseta:', error);

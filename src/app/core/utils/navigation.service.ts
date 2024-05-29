@@ -11,11 +11,11 @@ export class NavigationService {
     private router: Router,
   ) {}
 
-  navigate(url: string): Promise<boolean> {
-    let parameters = {
-      relativeTo: this.route
-    }
+  navigate(url: string[], params: any = {}): Promise<boolean> {
+    // let parameters = {
+    //   relativeTo: this.route
+    // }
 
-    return this.router.navigate([url], parameters);
+    return this.router.navigate(url, params);
   }
 }
