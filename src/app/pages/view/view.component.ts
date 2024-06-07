@@ -40,12 +40,9 @@ export class ViewComponent implements OnInit{
 
       for (let shirt of this.estimateData.shirts) {
         shirt.img_blob = this.fileService.base64ToUrl(this.data[0].front, 'image/png')
-        // shirt.img_blob = this.fileService.blobToUrl(blob);
       }
     }
   }
-
-  
 
   goToForm () {
     this.navigationService.navigate(["/form"])
@@ -79,7 +76,7 @@ export class ViewComponent implements OnInit{
   openlist() {
     this.dialog.open(EstimateItensComponent, {
       width: '1500px',
+      data: this.estimateData
     })
-
   }
 }

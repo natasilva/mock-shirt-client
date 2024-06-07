@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
-
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-estimate-itens',
   templateUrl: './estimate-itens.component.html',
@@ -9,23 +9,9 @@ import html2canvas from 'html2canvas';
 })
 export class EstimateItensComponent {
 
-  @Input() estimateData: any;
   isPrinting: boolean = false;
 
-  constructor() {
-    this.estimateData = {
-      quantity: 8,
-      total_value: 251.50,
-      material: 'Dry Fit',
-      color: 'Azul',
-      shirts: [
-        { quantity: 3, unit_value: 30.50, size: 'M', collar: 'V', sleeve: 'Curta', img_blob: 'https://images.unsplash.com/photo-1618354691438-25bc04584c23?q=80&w=1430&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-        { quantity: 3, unit_value: 30, size: 'P', collar: 'Redonda', sleeve: 'Longa', img_blob: 'https://images.unsplash.com/photo-1618354691438-25bc04584c23?q=80&w=1430&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-        { quantity: 2, unit_value: 35, size: 'GG', collar: 'V', sleeve: 'Longa', img_blob: 'https://images.unsplash.com/photo-1618354691438-25bc04584c23?q=80&w=1430&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-        { quantity: 20, unit_value: 50, size: 'GG', collar: 'V', sleeve: 'Longa', img_blob: 'https://images.unsplash.com/photo-1618354691438-25bc04584c23?q=80&w=1430&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-      ]
-    };
-  }
+  constructor(@Inject(MAT_DIALOG_DATA) public estimateData: any) {}
 
   onDeleteItem(index: number) {
     this.estimateData.shirts.splice(index, 1);
