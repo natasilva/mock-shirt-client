@@ -1,18 +1,20 @@
-import { Component } from '@angular/core';
-import { NavigationService } from '../../core/services/navigation.service';
+import { Component, OnInit } from '@angular/core';
+import { NavigationService } from '../../core/utils/navigation.service';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import { EstimateItensComponent } from '../../components/estimate-itens/estimate-itens.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FileService } from '../../core/utils/file.service';
 
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss']
 })
-export class ViewComponent  {
+export class ViewComponent implements OnInit{
 
   isPrinting: boolean = false;
+  data: any[] = []
 
   estimateData = {
     quantity: 8,
@@ -20,19 +22,33 @@ export class ViewComponent  {
     material: 'Dry Fit',
     color: 'Azul',
     shirts: [
-      { quantity: 3, unit_value: 30.50, size: 'M', collar: 'V', sleeve: 'Curta', img_blob: 'https://images.unsplash.com/photo-1618354691438-25bc04584c23?q=80&w=1430&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-      { quantity: 3, unit_value: 30, size: 'P', collar: 'Redonda', sleeve: 'Longa', img_blob: 'https://images.unsplash.com/photo-1618354691438-25bc04584c23?q=80&w=1430&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-      { quantity: 2, unit_value: 35, size: 'GG', collar: 'V', sleeve: 'Longa', img_blob: 'https://images.unsplash.com/photo-1618354691438-25bc04584c23?q=80&w=1430&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+      { quantity: 3, unit_value: 30.50, size: 'M', collar: 'V', sleeve: 'Curta', img_blob: '' },
+      { quantity: 3, unit_value: 30, size: 'P', collar: 'Redonda', sleeve: 'Longa', img_blob: '' },
+      { quantity: 2, unit_value: 35, size: 'GG', collar: 'V', sleeve: 'Longa', img_blob: '' }
     ]
   };
 
   constructor(
     private navigationService: NavigationService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private fileService: FileService,
   ) {}
 
+  ngOnInit(): void {
+    if (history.state && history.state.data) {
+      this.data = history.state.data;
+
+      for (let shirt of this.estimateData.shirts) {
+        shirt.img_blob = this.fileService.base64ToUrl(this.data[0].front, 'image/png')
+        // shirt.img_blob = this.fileService.blobToUrl(blob);
+      }
+    }
+  }
+
+  
+
   goToForm () {
-    this.navigationService.navigate("/form")
+    this.navigationService.navigate(["/form"])
   }
 
   generatePdf() {

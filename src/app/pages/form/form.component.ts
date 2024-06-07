@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationService } from '../../core/services/navigation.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NavigationService } from '../../core/utils/navigation.service';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ColorService } from '../../core/services/color.service';
 import { Observable } from 'rxjs';
 import { MaterialService } from '../../core/services/material.service';
+import { Router } from '@angular/router';
+import { ShirtService } from '../../core/services/shirt.service';
 
 @Component({
   selector: 'app-form',
@@ -21,82 +23,102 @@ export class FormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private navigationService: NavigationService,
     private colorService: ColorService,
-    private materialService: MaterialService
+    private materialService: MaterialService,
+    private shirtService: ShirtService,
+    private router: Router
   ) {
   }
   
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      malha: ['', Validators.required],
-      cor: ['', Validators.required],
-      logo: ['', [Validators.required, this.logoFileValidator.bind(this)]],  // Garantir uso do bind se necessário
-      logoManga: [false, Validators.required],
-      quantidadeLogos: [1, [Validators.required, Validators.min(1), Validators.max(3)]]
+      material: ['', Validators.required],
+      color: ['', Validators.required],
+      file: ['', [Validators.required, this.logoFileValidator.bind(this)]],
+      sleeveLogo: [false, Validators.required],
+      logoColorsQuantity: [1, [Validators.required, Validators.min(1), Validators.max(3)]]
     });
+
     this.listColors();
     this.listMaterials();
   }
 
-   listColors() {
+  listColors() {
     this.colors$ = this.colorService.list()
   }
 
-    listMaterials(){
+  listMaterials(){
     this.materials$ = this.materialService.list()
   }
-  
-  goToView () {
-    if (this.form.valid) {
-      this.navigationService.navigate('/view');
-    } else {
-      this.form.markAllAsTouched();
-    }
-  }
-  
+   
   increaseQuantity() {
     if (this.quantidadeLogos < 3) {
       this.quantidadeLogos++;
-      this.form.get('quantidadeLogos').setValue(this.quantidadeLogos);
+      this.form.get('logoColorsQuantity').setValue(this.quantidadeLogos);
     }
   }
 
   decreaseQuantity() {
     if (this.quantidadeLogos > 1) {
       this.quantidadeLogos--;
-      this.form.get('quantidadeLogos').setValue(this.quantidadeLogos);
+      this.form.get('logoColorsQuantity').setValue(this.quantidadeLogos);
     }
   }
 
-  
   logoFileValidator(control: { value: any; }): { [key: string]: any } | null {
     const file = control.value;
+
     if (file) {
-      const validTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+      const validTypes = ['image/jpeg', 'image/png'];
       if (!validTypes.includes(file.type)) {
         return { invalidFileType: true };
       }
     }
+
     return null;
   }
   
   selectedFile: File | null = null;
 
-
   onFileChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     const fileList: FileList | null = inputElement.files;
+
     if (fileList && fileList.length > 0) {
       const file = fileList[0];
-      const validTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+      const validTypes = ['image/jpeg', 'image/png'];
+  
       if (validTypes.includes(file.type)) {
         this.selectedFile = file;
-        this.form.get('logo')!.setValue(file);
+        this.form.get('file')!.setValue(file);
       } else {
         this.selectedFile = null;
-        this.form.get('logo')!.setValue(null);
-        // Aqui você pode adicionar uma mensagem de erro ou fazer o que preferir para lidar com o tipo de arquivo inválido
+        this.form.get('file')!.setValue(null);
       }
     }
+  }
+
+  goToView(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('material', this.form.get('material').value);
+    formData.append('color', this.form.get('color').value);
+    formData.append('file', this.form.get('file').value);
+    formData.append('sleeveLogo', this.form.get('sleeveLogo').value);
+    formData.append('logoColorsQuantity', this.form.get('logoColorsQuantity').value);
+
+    this.shirtService.processShirt(formData).subscribe({
+      next: (response) => {
+        this.navigationService.navigate(['/view'], { state: { data: response } })
+        // this.router.navigate(['/view'], { state: { data: response } });
+      },
+      error: (error) => {
+        console.error('Erro ao processar a camiseta:', error);
+      }
+    });
   }
   
 }
