@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationService } from '../../core/utils/navigation.service';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
+import { EstimateItensComponent } from '../../components/estimate-itens/estimate-itens.component';
+import { MatDialog } from '@angular/material/dialog';
 import { FileService } from '../../core/utils/file.service';
 
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
-  styleUrl: './view.component.scss'
+  styleUrls: ['./view.component.scss']
 })
 export class ViewComponent implements OnInit{
 
@@ -28,6 +30,7 @@ export class ViewComponent implements OnInit{
 
   constructor(
     private navigationService: NavigationService,
+    public dialog: MatDialog,
     private fileService: FileService,
   ) {}
 
@@ -71,5 +74,12 @@ export class ViewComponent implements OnInit{
 
       this.isPrinting = false;
     });
+  }
+
+  openlist() {
+    this.dialog.open(EstimateItensComponent, {
+      width: '1500px',
+    })
+
   }
 }
