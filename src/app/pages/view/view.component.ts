@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { NavigationService } from '../../core/services/navigation.service';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
+import { EstimateItensComponent } from '../../components/estimate-itens/estimate-itens.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
-  styleUrl: './view.component.scss'
+  styleUrls: ['./view.component.scss']
 })
 export class ViewComponent  {
 
@@ -25,7 +27,8 @@ export class ViewComponent  {
   };
 
   constructor(
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    public dialog: MatDialog
   ) {}
 
   goToForm () {
@@ -55,5 +58,12 @@ export class ViewComponent  {
 
       this.isPrinting = false;
     });
+  }
+
+  openlist() {
+    this.dialog.open(EstimateItensComponent, {
+      width: '1500px',
+    })
+
   }
 }
