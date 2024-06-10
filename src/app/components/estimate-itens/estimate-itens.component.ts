@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormArray, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-estimate-itens',
   templateUrl: './estimate-itens.component.html',
@@ -11,10 +12,10 @@ export class EstimateItensComponent {
 
   isPrinting: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public estimateData: any) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public estimateForm: FormGroup) {}
 
   onDeleteItem(index: number) {
-    this.estimateData.shirts.splice(index, 1);
+    this.shirts.removeAt(index);
   }
 
   generatePdf() {
@@ -40,5 +41,9 @@ export class EstimateItensComponent {
 
       this.isPrinting = false;
     });
+  }
+
+  get shirts(): FormArray {
+    return this.estimateForm.get('shirts') as FormArray;
   }
 }

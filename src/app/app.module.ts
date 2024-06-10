@@ -12,6 +12,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { EstimateItensComponent } from './components/estimate-itens/estimate-itens.component';
 import { MatIconModule } from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { MatIconModule } from '@angular/material/icon';
     FormsModule,
     HttpClientModule,
     MatDialogModule,
+    MatSelectModule,
+    BrowserAnimationsModule,
     MatIconModule
   ],
   providers: [],

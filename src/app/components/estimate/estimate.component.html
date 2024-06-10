@@ -13,7 +13,7 @@
   <ng-container *ngFor="let shirt of data?.shirts">
     <div class="d-flex flex-row align-items-start mb-5">
       <div class="flex-column align-items-start border">
-        <img class="w-auto" style="height: 350px;" [src]="shirt.img_blob">
+        <img class="w-auto" style="height: 350px;" [src]="shirt.img_url">
       </div>
       <div class="d-flex flex-column w-auto ms-5 fs-2">
         <div>Tamanho: {{ shirt.size }}</div>

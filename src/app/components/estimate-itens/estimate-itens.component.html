@@ -1,11 +1,11 @@
 <h2 mat-dialog-title>ORÇAMENTO DAS CAMISETAS</h2>
 <mat-dialog-content>
   <div class="shopping-bag">
-    <ng-container *ngFor="let shirt of estimateData.shirts; let i = index">
+    <ng-container *ngFor="let shirt of estimateForm.value.shirts; let i = index">
       <div class="item">
         <div class="container">
           <div class="image">
-            <img [src]="shirt.img_blob" alt="Shirt Image">
+            <img [src]="shirt.img_url" alt="Shirt Image">
           </div>
           <div class="details">
             <div class="description">
@@ -34,9 +34,9 @@
   </div>
   <div id="print-section-1">
      <ng-container *ngIf="isPrinting">
-        <app-estimate [data]="estimateData"></app-estimate>
+        <app-estimate [data]="estimateForm.value"></app-estimate>
     </ng-container> 
-</div>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Voltar</button>
