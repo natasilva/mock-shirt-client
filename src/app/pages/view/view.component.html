@@ -11,7 +11,7 @@
           <mat-label>Imagem:</mat-label>
           <mat-select id="img_url" formControlName="shirt">
             <mat-option value="">Selecione uma opção</mat-option>
-            <mat-option *ngFor="let shirt of data" [value]="shirt">{{ shirt.typeCollar + ' e ' + shirt.typeSleeve }}</mat-option>
+            <mat-option *ngFor="let shirt of data.shirts" [value]="shirt">{{ shirt.typeCollar + ' e ' + shirt.typeSleeve }}</mat-option>
           </mat-select>
           <mat-error *ngIf="shirtForm.get('img_url')?.hasError('required')">
             Esse campo é obrigatório

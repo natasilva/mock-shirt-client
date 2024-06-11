@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
 export class ViewComponent implements OnInit{
 
   isPrinting: boolean = false;
-  data: any[] = []
+  data: any = {};
 
   sizes$: Observable<any[]> | null = new Observable<any[]>()
 
@@ -49,7 +49,13 @@ export class ViewComponent implements OnInit{
       shirt: [null, Validators.required],
     });
 
-    this.shirtForm.valueChanges.subscribe(val => console.log(this.estimateForm.value))
+    this.estimateForm.controls['shirts'].valueChanges.subscribe(val => {
+      let quantity = val.reduce((acc: number, obj: any) => { return acc + obj.quantity }, 0) 
+      let total_value = val.reduce((acc: number, obj: any) => { return acc + (obj.unit_value * obj.quantity) }, 0) 
+
+      this.estimateForm.patchValue({ quantity, total_value })
+    })
+
     this.shirtForm.controls['shirt'].valueChanges.subscribe(shirt => {
       this.shirtForm.patchValue({
         img_url: shirt.front,
@@ -64,11 +70,13 @@ export class ViewComponent implements OnInit{
     this.listSizes()
 
     if (history.state && history.state.data) {
-      this.data = history.state.data.map((item: any) => ({
+      this.data = history.state.data
+      this.data.shirts = this.data.shirts.map((item: any) => ({
         ...item,
         front: this.base64ToUrl(item.front)
       }));
 
+      this.estimateForm.patchValue({ color: this.data.color, material: this.data.material })
       this.cd.detectChanges();
     }
   }

@@ -112,8 +112,13 @@ export class FormComponent implements OnInit {
 
     this.shirtService.processShirt(formData).subscribe({
       next: (response) => {
-        this.navigationService.navigate(['/view'], { state: { data: response } })
-        // this.router.navigate(['/view'], { state: { data: response } });
+        const data = {
+          color: this.form.get('color').value,
+          material: this.form.get('material').value,
+          logoColorsQuantity: this.form.get('logoColorsQuantity').value
+        }
+
+        this.navigationService.navigate(['/view'], { state: { data: { shirts: [...response], ...data  } } })
       },
       error: (error) => {
         console.error('Erro ao processar a camiseta:', error);
