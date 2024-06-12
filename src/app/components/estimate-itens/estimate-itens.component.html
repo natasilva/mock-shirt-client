@@ -10,8 +10,8 @@
           <div class="details">
             <div class="description">
               <span class="size">Tamanho: {{ shirt.size }}<br></span>
-              <span class="collar">Gola: {{ shirt.collar }}<br></span>
-              <span class="sleeve">Manga: {{ shirt.sleeve }}<br></span>
+              <span class="collar">{{ shirt.collar.name }}<br></span>
+              <span class="sleeve">{{ shirt.sleeve.name }}<br></span>
             </div>
             <div class="price">Preço: {{ shirt.unit_value | currency:'BRL' }}</div>
             <div class="quantity">Quantidade: {{ shirt.quantity }}</div>

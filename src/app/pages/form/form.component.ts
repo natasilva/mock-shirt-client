@@ -104,8 +104,8 @@ export class FormComponent implements OnInit {
     }
 
     const formData = new FormData();
-    formData.append('material', this.form.get('material').value);
-    formData.append('color', this.form.get('color').value);
+    formData.append('material', this.form.get('material').value.key);
+    formData.append('color', this.form.get('color').value.key);
     formData.append('file', this.form.get('file').value);
     formData.append('sleeveLogo', this.form.get('sleeveLogo').value);
     formData.append('logoColorsQuantity', this.form.get('logoColorsQuantity').value);
@@ -113,8 +113,8 @@ export class FormComponent implements OnInit {
     this.shirtService.processShirt(formData).subscribe({
       next: (response) => {
         const data = {
-          color: this.form.get('color').value,
-          material: this.form.get('material').value,
+          color: this.form.get('color').value.name,
+          material: this.form.get('material').value.name,
           logoColorsQuantity: this.form.get('logoColorsQuantity').value
         }
 

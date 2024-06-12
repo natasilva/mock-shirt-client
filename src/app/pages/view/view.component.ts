@@ -59,8 +59,8 @@ export class ViewComponent implements OnInit{
     this.shirtForm.controls['shirt'].valueChanges.subscribe(shirt => {
       this.shirtForm.patchValue({
         img_url: shirt.front,
-        collar: shirt.typeCollar,
-        sleeve: shirt.typeSleeve,
+        collar: shirt.collar,
+        sleeve: shirt.sleeve,
         unit_value: shirt.value
       })
     })

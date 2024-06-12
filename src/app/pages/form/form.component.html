@@ -11,7 +11,7 @@
               <label for="malhaSelect" class="form-label">Malha:</label>
               <select id="malhaSelect" class="form-select" formControlName="material">
                 <option value="" disabled selected>Selecione a malha</option>
-                <option *ngFor="let material of materials$ | async" [value]="material.key">{{ material.name }}</option>
+                <option *ngFor="let material of materials$ | async" [ngValue]="material">{{ material.name }}</option>
               </select>
               <div *ngIf="form.get('material').touched && form.get('material').invalid" class="text-danger">
                 Este campo é obrigatório.
@@ -22,7 +22,7 @@
               <label for="corSelect" class="form-label">Cor:</label>
               <select id="corSelect" class="form-select" formControlName="color">
                 <option value="" disabled selected>Selecione a cor</option>
-                <option *ngFor="let color of colors$ | async" [value]="color.key">{{ color.name }}</option>
+                <option *ngFor="let color of colors$ | async" [ngValue]="color">{{ color.name }}</option>
               </select>
               <div *ngIf="form.get('color').touched && form.get('color').invalid" class="text-danger">
                 Este campo é obrigatório.
