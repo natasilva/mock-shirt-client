@@ -23,6 +23,10 @@ export class ViewComponent implements OnInit{
   shirtForm: FormGroup;
   quantity: number = 1;
 
+  front_url: string = ''
+  back_url: string = ''
+  is_front: boolean = true
+
   constructor(
     private navigationService: NavigationService,
     private sizeService: SizeService,
@@ -57,6 +61,8 @@ export class ViewComponent implements OnInit{
     })
 
     this.shirtForm.controls['shirt'].valueChanges.subscribe(shirt => {
+      this.back_url = shirt.back
+      this.front_url = shirt.front
       this.shirtForm.patchValue({
         img_url: shirt.front,
         collar: shirt.collar,
@@ -73,7 +79,8 @@ export class ViewComponent implements OnInit{
       this.data = history.state.data
       this.data.shirts = this.data.shirts.map((item: any) => ({
         ...item,
-        front: this.base64ToUrl(item.front)
+        front: this.base64ToUrl(item.front),
+        back: this.base64ToUrl(item.back)
       }));
 
       this.estimateForm.patchValue({ color: this.data.color, material: this.data.material })
@@ -137,5 +144,7 @@ export class ViewComponent implements OnInit{
     return this.estimateForm.get('shirts') as FormArray;
   }
 
-  viewBack() {}
+  viewBack() {
+    this.is_front = !this.is_front
+  }
 }
