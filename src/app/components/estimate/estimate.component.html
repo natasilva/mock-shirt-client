@@ -3,23 +3,23 @@
 </div>
 
 <div class="d-flex flex-column w-auto justify-content-start mb-5 ms-5 fs-3">
-  <div>Tipo de malha: {{ data.material }}</div>
-  <div>Cor: {{ data.color }}</div>
-  <div>Quantidade: {{ data.quantity }}</div>
-  <div>Valor Total: {{ data.total_value | currency:'R$ ' }}</div>
+  <p>Tipo de malha: {{ data.material }}</p>
+  <p>Cor: {{ data.color }}</p>
+  <p>Quantidade Total: {{ data.quantity }}</p>
+  <p>Valor Total: {{ data.total_value | currency:'R$ ' }}</p>
 </div>
 
 <div class="d-flex flex-column align-items-center justify-content-center">
   <ng-container *ngFor="let shirt of data?.shirts">
     <div class="d-flex flex-row align-items-start mb-5">
       <div class="flex-column align-items-start border">
-        <img class="w-auto" style="height: 350px;" [src]="shirt.img_url">
+        <img class="w-auto" style="height: 280px;" [src]="shirt.img_url">
       </div>
-      <div class="d-flex flex-column w-auto ms-5 fs-2">
-        <div>Tamanho: {{ shirt.size }}</div>
-        <div>{{ shirt.collar.name }}</div>
-        <div>{{ shirt.sleeve.name }}</div>
-        <div>{{ shirt.quantity }} x {{ shirt.unit_value | currency:'R$ ' }} = {{ (shirt.quantity * shirt.unit_value) | currency: 'R$ ' }} </div>
+      <div class="d-flex flex-column w-auto ms-5 fs-4">
+        <p>Tamanho: {{ shirt.size }}</p>
+        <p>{{ shirt.collar.name }}</p>
+        <p>{{ shirt.sleeve.name }}</p>
+        <p>{{ shirt.quantity }} unid. x {{ shirt.unit_value | currency:'R$ ' }} = {{ (shirt.quantity * shirt.unit_value) | currency: 'R$ ' }} </p>
       </div>
     </div>
   </ng-container>
