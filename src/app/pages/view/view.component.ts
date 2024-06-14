@@ -124,8 +124,9 @@ export class ViewComponent implements OnInit{
       let shirtData = this.shirtForm.getRawValue()
       delete shirtData.shirt
       this.shirts.push(this.createShirt(shirtData));
+      this.quantity = 1;
       this.shirtForm.reset(null, { emitEvent: false })
-      this.shirtForm.patchValue({ quantity: 1 });
+      this.shirtForm.patchValue({ quantity: this.quantity });
     }
   }
 

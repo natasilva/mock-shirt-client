@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormArray, FormGroup } from '@angular/forms';
+import html2pdf from 'html2pdf.js';
+
 @Component({
   selector: 'app-estimate-itens',
   templateUrl: './estimate-itens.component.html',
@@ -20,27 +20,34 @@ export class EstimateItensComponent {
 
   generatePdf() {
     this.isPrinting = true;
-    
+
     setTimeout(() => {
-      const element = document.getElementById(`print-section-1`);
+      const element = document.getElementById('print-section-1');
 
-      html2canvas(element || new HTMLElement(), { scale: 1 }).then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF();
-        const imgProps = pdf.getImageProperties(imgData);
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-  
-        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      if (element) {
+        const opt = {
+          margin: [0.3, 0, 0, 0 ],
+          filename: 'document.pdf',
+          image: { type: 'png', quality: 0.98 },
+          html2canvas: { scale: 2 },
+          jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
+          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+        };
 
-        const blob = pdf.output('blob');
-        const url = URL.createObjectURL(blob);
+        html2pdf().from(element).set(opt).output('blob').then((blob: any) => {
+          const url = URL.createObjectURL(blob);
 
-        window.open(url, '_blank');
-      });
-
-      this.isPrinting = false;
-    });
+          window.open(url, '_blank');
+          this.isPrinting = false;
+        }).catch((err: any) => {
+          console.error('Error generating PDF:', err);
+          this.isPrinting = false;
+        });
+      } else {
+        console.error('Element not found');
+        this.isPrinting = false;
+      }
+    }, 0);
   }
 
   get shirts(): FormArray {
