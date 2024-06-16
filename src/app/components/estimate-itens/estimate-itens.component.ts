@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormArray, FormGroup } from '@angular/forms';
 import html2pdf from 'html2pdf.js';
 
 @Component({
@@ -26,7 +26,7 @@ export class EstimateItensComponent {
 
       if (element) {
         const opt = {
-          margin: [0.3, 0, 0, 0 ],
+          margin: [0.3, 0, 0, 0],
           filename: 'document.pdf',
           image: { type: 'png', quality: 0.98 },
           html2canvas: { scale: 2 },

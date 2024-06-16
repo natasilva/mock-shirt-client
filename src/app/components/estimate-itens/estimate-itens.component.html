@@ -1,44 +1,32 @@
-<h2 mat-dialog-title>ORÇAMENTO DAS CAMISETAS</h2>
-<mat-dialog-content>
-  <div class="shopping-bag">
-    <ng-container *ngFor="let shirt of estimateForm.value.shirts; let i = index">
-      <div class="item">
-        <div class="container">
-          <div class="image">
-            <img [src]="shirt.img_url" alt="Shirt Image">
+<div class="shopping-bag" id="print-section-1">
+  <ng-container *ngFor="let shirt of estimateForm.value.shirts; let i = index">
+    <div class="item">
+      <div class="container">
+        <div class="image">
+          <img [src]="shirt.img_url" alt="Shirt Image">
+        </div>
+        <div class="details">
+          <div class="description">
+            <span class="size">Tamanho: {{ shirt.size.name }}<br></span>
+            <span class="collar">Gola: {{ shirt.collar.name }}<br></span>
+            <span class="sleeve">Manga: {{ shirt.sleeve.name }}<br></span>
           </div>
-          <div class="details">
-            <div class="description">
-              <span class="size">Tamanho: {{ shirt.size }}<br></span>
-              <span class="collar">{{ shirt.collar.name }}<br></span>
-              <span class="sleeve">{{ shirt.sleeve.name }}<br></span>
-            </div>
-            <div class="price">Preço: {{ shirt.unit_value | currency:'BRL' }}</div>
-            <div class="quantity">Quantidade: {{ shirt.quantity }}</div>
-            <button mat-fab color="warn" aria-label="Excluir" (click)="onDeleteItem(i)" class="trash-button">
-              <mat-icon>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
-                  <polyline points="3 6 5 6 21 6"></polyline>
-                  <path d="M16 6L16 4C16 3.46957 15.7893 2.96086 15.4142 2.58579C15.0391 2.21071 14.5304 2 14 2L10 2C9.46957 2 8.96086 2.21071 8.58579 2.58579C8.21071 2.96086 8 3.46957 8 4L8 6"></path>
-                  <path d="M19 6L5 6"></path>
-                  <path d="M10 11V17C10 17.5304 10.2107 18.0391 10.5858 18.4142C10.9609 18.7893 11.4696 19 12 19L12 19C12.5304 19 13.0391 18.7893 13.4142 18.4142C13.7893 18.0391 14 17.5304 14 17V11"></path>
-                  <path d="M7 11L7 17"></path>
-                  <path d="M17 11L17 17"></path>
-                </svg>
-              </mat-icon>
-            </button>          
-          </div>
+          <div class="quantity">Quantidade: {{ shirt.quantity }}</div>
+          <div class="price">Preço: {{ shirt.unit_value | currency:'BRL' }}</div>
+          <button mat-fab color="warn" aria-label="Excluir" (click)="onDeleteItem(i)" class="trash-button">
+            <mat-icon>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M16 6L16 4C16 3.46957 15.7893 2.96086 15.4142 2.58579C15.0391 2.21071 14.5304 2 14 2L10 2C9.46957 2 8.96086 2.21071 8.58579 2.58579C8.21071 2.96086 8 3.46957 8 4L8 6"></path>
+                <path d="M19 6L5 6"></path>
+                <path d="M10 11V17C10 17.5304 10.2107 18.0391 10.5858 18.4142C10.9609 18.7893 11.4696 19 12 19L12 19C12.5304 19 13.0391 18.7893 13.4142 18.4142C13.7893 18.0391 14 17.5304 14 17V11"></path>
+                <path d="M7 11L7 17"></path>
+                <path d="M17 11L17 17"></path>
+              </svg>
+            </mat-icon>
+          </button>
         </div>
       </div>
-    </ng-container>
-  </div>
-  <div id="print-section-1">
-     <ng-container *ngIf="isPrinting">
-        <app-estimate [data]="estimateForm.value"></app-estimate>
-    </ng-container> 
-  </div>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Voltar</button>
-  <button mat-button cdkFocusInitial (click) = "generatePdf()"> Gerar PDF</button>
-</mat-dialog-actions>
+    </div>
+  </ng-container>
+</div>
