@@ -70,19 +70,12 @@ export class ViewComponent implements OnInit {
         sleeve: shirt.sleeve,
         unit_value: shirt.value,
         original_value: shirt.value,
-        // size: shirt.size
       });
+
+      this.setUnitValue()
     });
 
     this.shirtForm.controls['size'].valueChanges.subscribe(size => this.setUnitValue());
-
-    // this.shirtForm.controls['img_url'].valueChanges.subscribe(() => {
-    //   this.shirtForm.patchValue({
-
-    //   })
-    // })
-
-    // this.shirtForm.controls['sleeve'].valueChanges.subscribe(sleeve => this.setUnitValue());
   }
 
   ngOnInit(): void {
@@ -98,20 +91,6 @@ export class ViewComponent implements OnInit {
 
       this.estimateForm.patchValue({ color: this.data.color, material: this.data.material });
       this.cd.detectChanges();
-
-      // const firstShirt = this.data.shirts[0];
-      // this.shirtForm.patchValue({
-      //   img_url: firstShirt.front,
-      //   collar: firstShirt.typeCollar,
-      //   sleeve: firstShirt.typeSleeve,
-      //   unit_value: firstShirt.value,
-      //   size: firstShirt.value,
-      //   quantity: 1
-      // });
-
-      // this.shirtForm.controls['shirt'].setValue(firstShirt);
-
-      // this.cd.detectChanges();
     }
   }
 
@@ -178,12 +157,7 @@ export class ViewComponent implements OnInit {
   }
 
   setUnitValue(){
-    this.shirtForm.controls['unit_value'].setValue(this.shirtForm.value.original_value + (this.shirtForm.controls['size'].value?.value || 0))
+    const new_value = (this.shirtForm.controls['shirt'].value.value || 0) + (this.shirtForm.controls['size'].value?.value || 0)
+    this.shirtForm.controls['unit_value'].setValue(new_value)
   }
-
-  // setSleeveValue(sleeve: any){
-  //   if (sleeve) {
-  //     this.shirtForm.controls['unit_value'].setValue(this.shirtForm.value.original_value + this.shirtForm.value.size.value + this.shirtForm.value.sleeve.value)
-  //   }
-  // }
 }

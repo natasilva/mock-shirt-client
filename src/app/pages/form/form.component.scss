@@ -1,8 +1,4 @@
-// colocar o estilo nas classes do html utilizando o bootstrap 
-
 .container {
-  align-items: center;
-  justify-content: center;
   height: 100vh;
 }
 
@@ -14,8 +10,6 @@ mat-card {
 }
 
 mat-card-header {
-  display: flex;
-  justify-content: center;
   margin-bottom: 20px;
   font-weight: bold;
   padding: 0; 
@@ -25,9 +19,4 @@ mat-card-title {
   font-size: 26px; 
   font-weight: bold;
   text-align: center; 
-  width: 100%; 
-}
-
-.generate-button {
-  width: 100%;
 }

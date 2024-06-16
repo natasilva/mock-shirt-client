@@ -1,0 +1,29 @@
+@use '@angular/material' as mat;
+
+$app-primary: mat.define-palette(mat.$red-palette, 700);
+$app-accent: mat.define-palette(mat.$blue-palette);
+$app-warning: mat.define-palette(mat.$green-palette);
+
+$app-theme: mat.define-light-theme((
+ color: (
+    primary: $app-primary,
+    accent: $app-accent,
+    warning: $app-warning,
+  ),
+));
+
+@include mat.all-component-themes($app-theme);
+
+@import '@angular/material/core/theming/theming';
+@include mat.core();
+
+body {
+  background-color: #c3c6c9;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.primary-text {
+  color: mat.get-color-from-palette($app-primary);
+}

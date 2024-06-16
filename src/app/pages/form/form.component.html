@@ -1,48 +1,49 @@
-<div class="container">
-  <div class="row justify-content-center mt-5">
+<div class="container mb-5">
+  <div class="row justify-content-center align-items-center mt-5" style="height: 100vh">
     <div class="col-md-6">
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>Mock-Shirt</mat-card-title>
+      <mat-card class="rounded-4">
+        <mat-card-header class="d-flex justify-content-center">
+          <mat-card-title class="primary-text">Mock-Shirt</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <form [formGroup]="form" (ngSubmit)="goToView()">
             <div class="mb-3">
-              <label for="malhaSelect" class="form-label">Malha:</label>
-              <select id="malhaSelect" class="form-select" formControlName="material">
-                <option value="" disabled selected>Selecione a malha</option>
-                <option *ngFor="let material of materials$ | async" [ngValue]="material">{{ material.name }}</option>
-              </select>
-              <div *ngIf="form.get('material').touched && form.get('material').invalid" class="text-danger">
-                Este campo é obrigatório.
-              </div>
+              <mat-form-field class="w-100">
+                <mat-label>Malha</mat-label>
+                <mat-select id="material" formControlName="material">
+                  <mat-option>Selecione a malha</mat-option>
+                  <mat-option *ngFor="let material of materials$ | async" [value]="material">{{ material.name }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.get('material').touched && form.get('material').invalid">
+                  Este campo é obrigatório!
+                </mat-error>
+              </mat-form-field>
             </div>
 
-            <div class="mb-3">
-              <label for="corSelect" class="form-label">Cor:</label>
-              <select id="corSelect" class="form-select" formControlName="color">
-                <option value="" disabled selected>Selecione a cor</option>
-                <option *ngFor="let color of colors$ | async" [ngValue]="color">{{ color.name }}</option>
-              </select>
-              <div *ngIf="form.get('color').touched && form.get('color').invalid" class="text-danger">
-                Este campo é obrigatório.
-              </div>
+            <div class="mb-2">
+              <mat-form-field class="w-100">
+                <mat-label>Cor</mat-label>
+                <mat-select id="color" formControlName="color">
+                  <mat-option>Selecione a cor</mat-option>
+                  <mat-option *ngFor="let color of colors$ | async" [value]="color">{{ color.name }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.get('color').touched && form.get('color').invalid">
+                  Este campo é obrigatório!
+                </mat-error>
+              </mat-form-field>
             </div>
 
-            <form [formGroup]="form">
-              <div class="mb-3">
-                <label for="logoUpload" class="form-label">Logo:</label>
-                <input type="file" id="logoUpload" class="form-control" (change)="onFileChange($event)">
-                <div *ngIf="form.get('file').invalid && form.get('file').touched" class="text-danger">
-                  <div *ngIf="form.get('file').errors?.required">
-                    Formato de arquivo inválido. Aceito apenas jpg e png.
-                  </div>
+            <div class="mb-4">
+              <label for="logoUpload" class="form-label">Logo:</label>
+              <input type="file" id="logoUpload" class="form-control" (change)="onFileChange($event)">
+              <div *ngIf="form.get('file').invalid && form.get('file').touched" class="text-danger">
+                <div *ngIf="form.get('file').errors?.required">
+                  Formato de arquivo inválido. Aceito apenas jpg e png.
                 </div>
               </div>
-            </form>
-            
+            </div>
 
-            <div class="mb-3">
+            <div class="mb-4">
               <label class="form-label">Logo na Manga:</label><br>
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" [value]="true" formControlName="sleeveLogo" id="simRadio" value="true">
@@ -57,7 +58,7 @@
               </div>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-2">
               <label for="logoColorsQuantity" class="form-label">Quantidade de cores na logo:</label>
               <div class="d-flex align-items-center">
                 <div class="input-group" style="width: 30%;">
@@ -68,7 +69,7 @@
               </div>
             </div>
             <mat-card-actions class="d-flex justify-content-center">
-              <button mat-flat-button color="primary" class="btn-lg rounded-pill px-4" type="submit">Gerar</button>
+              <button mat-flat-button color="primary" class="btn-lg rounded-pill px-4 mt-2" type="submit">Gerar</button>
             </mat-card-actions>
           </form>
         </mat-card-content>
