@@ -12,7 +12,7 @@ export class EstimateItensComponent {
 
   isPrinting: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public estimateForm: FormGroup) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public estimateForm: FormGroup) {} 
 
   onDeleteItem(index: number) {
     this.shirts.removeAt(index);

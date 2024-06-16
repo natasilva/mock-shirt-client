@@ -31,8 +31,8 @@ export class FormComponent implements OnInit {
   
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      material: ['', Validators.required],
-      color: ['', Validators.required],
+      material: [null, Validators.required],
+      color: [null, Validators.required],
       file: ['', [Validators.required, this.logoFileValidator.bind(this)]],
       sleeveLogo: [false, Validators.required],
       logoColorsQuantity: [1, [Validators.required, Validators.min(1), Validators.max(3)]]
