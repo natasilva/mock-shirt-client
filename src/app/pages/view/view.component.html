@@ -1,4 +1,4 @@
-<div class="mt-3 ps-3">
+<!-- <div class="mt-3 ps-3">
     <button mat-flat-button (click)="openlist()">CAMISETAS</button>
 
     <form [formGroup]="shirtForm">
@@ -6,18 +6,7 @@
         <img style="width: 200px;" [src]="is_front ? front_url : back_url">
       </div>
 
-      <div class="mb-3 mt-3">
-        <mat-form-field>
-          <mat-label>Imagem:</mat-label>
-          <mat-select id="img_url" formControlName="shirt">
-            <mat-option value="">Selecione uma opção</mat-option>
-            <mat-option *ngFor="let shirt of data.shirts" [value]="shirt">{{ shirt.collar.name + ' e ' + shirt.sleeve.name }}</mat-option>
-          </mat-select>
-          <mat-error *ngIf="shirtForm.get('img_url')?.hasError('required')">
-            Esse campo é obrigatório
-          </mat-error>
-        </mat-form-field>
-      </div>
+      
 
       <div class="mb-3">
         <mat-form-field>
@@ -45,5 +34,69 @@
       <button mat-flat-button class="me-3" (click)="viewBack()" color="accent">{{ is_front ? 'Ver parte de trás' : 'Ver parte da frente' }} </button>
       <button mat-flat-button class="me-3" (click)="goToForm()" color="warn">Voltar para o form</button>
       <button mat-flat-button color="primary" class="btn-lg px-4" (click)="save()">Adicionar ao Orçamento</button>
-    </form>
+    </form> -->
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+      <mat-card>
+        <mat-card-content>
+          <form [formGroup]="shirtForm">
+            <div class="mt-2 d-flex justify-content-center" *ngIf="shirtForm.value.img_url">
+              <div class="border border-dark rounded p-2"> 
+                <img style="width: 210px;" [src]="shirtForm.value.img_url">
+              </div>
+            </div>
+            
+            <div class="mb-3 mt-3">
+              <mat-form-field class="w-100">
+                <mat-label>Imagem:</mat-label>
+                <mat-select id="img_url" formControlName="shirt">
+                  <mat-option value="">Selecione uma opção</mat-option>
+                  <mat-option *ngFor="let shirt of data.shirts" [value]="shirt">{{ shirt.collar.name + ' e ' + shirt.sleeve.name }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="shirtForm.get('img_url')?.hasError('required')">
+                  Esse campo é obrigatório
+                </mat-error>
+              </mat-form-field>
+            </div>
+      
+            <div class="mb-3">
+              <mat-form-field class="w-100">
+                <mat-label>Tamanho:</mat-label>
+                <mat-select id="size" formControlName="size">
+                  <mat-option value="">Selecione o tamanho</mat-option>
+                  <mat-option *ngFor="let size of sizes$ | async" [value]="size">{{ size.name }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="shirtForm.get('size')?.hasError('required')">
+                  O tamanho é obrigatório
+                </mat-error>
+              </mat-form-field>
+            </div>
+      
+            <div class="mb-3">
+              <label for="quantity" appearance="fill">Quantidade:</label>
+              <div class="d-flex align-items-center" style="width: 100px;">
+                  <div class="input-group">
+                    <button class="btn btn-outline-secondary" type="button" (click)="decreaseQuantity()">-</button>
+                    <input type="number" id="quantidadeLogos" class="form-control text-center" formControlName="quantity" readonly >
+                    <button class="btn btn-outline-secondary" type="button" (click)="increaseQuantity()">+</button>
+                  </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+              <span class="final-value">
+                {{ quantity }} x R$ {{ shirtForm.controls['unit_value'].value | number:'1.2-2' }} = R$ {{ (shirtForm.controls['unit_value'].value * quantity) | number:'1.2-2' }}
+              </span>
+            </div>
+            
+            <div class="btn-center">
+              <button mat-raised-button color="warn" class="btn-1" (click)="goToForm()">Voltar</button>
+              <button mat-raised-button color="primary" class="btn-1" (click)="save()">Adicionar</button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>      
+    </div>
+  </div>
 </div>
