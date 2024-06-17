@@ -1,3 +1,4 @@
+
 .container {
   align-items: center;
   justify-content: center;
@@ -31,31 +32,40 @@ mat-card-title {
 }
 
 .quantity-input {
-  display: flex;
   align-items: center;
 }
 
 .quantity-input .btn {
-  width: 30px;
+  width: 40px;
   height: 30px;
   padding: 0;
 }
 
 .quantity-input .form-control {
-  width: 40px;
+  width: 25px;
   text-align: center;
   padding: 0;
   height: 30px;
 }
 
 .final-value {
-  border: 5px solid #333; 
-  padding: 10px;
+  background-color: #d3d5d5;
+  border: 1px solid #a5a7aa; 
+  padding: 10px 20px;
   border-radius: 10px;
-  max-width: 75%;
   text-align: center;
-  padding-right: 50px;
-  padding-left: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  color:#474747;
   display: inline-block;
+  max-width: 75%;
+  margin: 10px 0;
 }
 
+.rotate-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 24px;
+}
