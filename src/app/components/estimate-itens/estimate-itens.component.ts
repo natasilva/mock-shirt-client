@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import html2pdf from 'html2pdf.js';
@@ -12,10 +12,14 @@ export class EstimateItensComponent {
 
   isPrinting: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public estimateForm: FormGroup) {} 
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public estimateForm: FormGroup,
+    private cd: ChangeDetectorRef,
+  ) {} 
 
   onDeleteItem(index: number) {
     this.shirts.removeAt(index);
+    this.cd.detectChanges();
   }
 
   generatePdf() {
@@ -36,16 +40,19 @@ export class EstimateItensComponent {
 
         html2pdf().from(element).set(opt).output('blob').then((blob: any) => {
           const url = URL.createObjectURL(blob);
-
+          
           window.open(url, '_blank');
           this.isPrinting = false;
+          this.cd.detectChanges();
         }).catch((err: any) => {
           console.error('Error generating PDF:', err);
           this.isPrinting = false;
+          this.cd.detectChanges();
         });
       } else {
         console.error('Element not found');
         this.isPrinting = false;
+        this.cd.detectChanges();
       }
     }, 0);
   }

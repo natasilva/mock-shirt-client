@@ -1,94 +1,36 @@
 .shopping-bag {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
   background-color: #f8f8f8;
 
-  .item {
-    margin-bottom: 20px;
-    border: 1px solid #000000;
-    padding: 30px;
-    border-radius: 30px;
-    background-color: #ffffff;
-    width: 100%;
-    max-width: 600px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative; /* Adicionando posição relativa para o item */
+  .price {
+    font-size: 26px;
+    font-weight: bold;
+    color: #333333;
+    margin-left: auto;
+  }
 
-    .container {
-      display: flex;
-      align-items: flex-start;  /* Alinhando os itens no topo */
-      justify-content: space-between; /* Alinhando preço e quantidade */
-      flex-wrap: wrap;
-
-      .image {
-        flex-shrink: 0;
-        margin-right: 20px;
-        flex-basis: 120px;  /* Fixando a largura da imagem */
-
-        img {
-          width: 100%;
-          height: auto;
-          border-radius: 4px;
-          object-fit: cover;
-        }
-      }
-
-      .details {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-        width: calc(100% - 140px); /* Ajuste de largura para espaço do botão */
-
-        .description,
-        .price,
-        .quantity {
-          font-size: 20px;
-          margin-bottom: 2px;
-          color: #fffafa;
-        }
-
-        .description {
-          .size,
-          .collar,
-          .sleeve {
-            display: block;
-          }
-        }
-
-        .price {
-          font-size: 26px;
-          font-weight: bold;
-          color: #333333;
-          margin-left: auto; /* Alinha o preço à direita */
-        }
-
-        .quantity {
-          font-size: 17px;
-          color: #ffffff;
-          margin-left: auto; /* Alinha a quantidade à direita */
-        }
-
-        .trash-button {
-          position: absolute;
-          top: 10px; /* Ajuste para cima */
-          right: 10px; /* Ajuste para a direita */
-          background-color: #ff4d4d;
-          color: #ffffff;
-          z-index: 1; /* Adicionando um índice z para que o botão fique em cima */
-          padding: 8px;
-          border-radius: 50%;
-          
-          &:hover {
-            background-color: #ff1a1a;
-          }
-
-          mat-icon {
-            vertical-align: middle;
-          }
-        }
-      }
+  .trash-button {
+    &:hover {
+      background-color: #ff1a1a;
     }
+  }
+}
+
+.empty-placeholder {
+  text-align: center;
+  // padding: 20px;
+  color: #999;
+}
+
+@media (max-width: 768px) {
+  .description {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .d-flex.flex-row.flex-wrap {
+    flex-direction: column;
+    align-items: center;
+  }
+  .d-flex.flex-column.justify-content-between.align-items-end {
+    align-items: center;
   }
 }

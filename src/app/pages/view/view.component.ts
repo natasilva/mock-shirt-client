@@ -37,6 +37,7 @@ export class ViewComponent implements OnInit {
   ) {
     this.estimateForm = this.formBuilder.group({
       quantity: [0, null],
+      // logoColorsQuantity: [0, null],
       total_value: [0, null],
       material: [null, Validators.required],
       color: [null, Validators.required],

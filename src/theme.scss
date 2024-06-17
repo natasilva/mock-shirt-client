@@ -1,14 +1,14 @@
 @use '@angular/material' as mat;
 
 $app-primary: mat.define-palette(mat.$red-palette, 700);
-$app-accent: mat.define-palette(mat.$blue-palette);
-$app-warning: mat.define-palette(mat.$green-palette);
+$app-accent: mat.define-palette(mat.$green-palette);
+$app-warn: mat.define-palette(mat.$red-palette);
 
 $app-theme: mat.define-light-theme((
  color: (
     primary: $app-primary,
     accent: $app-accent,
-    warning: $app-warning,
+    warn: $app-warn,
   ),
 ));
 
