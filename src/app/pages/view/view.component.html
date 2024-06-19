@@ -4,12 +4,16 @@
       <mat-card class="rounded-4">
         <mat-card-content>
           <form [formGroup]="shirtForm">
-            <div class="mt-2 d-flex justify-content-center" *ngIf="shirtForm.value.img_url">
-              <div class="border border-dark rounded p-2"> 
-                <img style="width: 210px;" [src]="shirtForm.value.img_url">
+            <ng-container *ngIf="shirtForm.value.img_url">
+              <div class="mt-2 d-flex justify-content-center" >
+                <div class="border border-dark rounded p-2"> 
+                  <img style="width: 210px;" [src]="is_front ? front_url : back_url">
+                </div>
               </div>
-            </div>
-            
+              <button mat-fab (click)="viewBack()" style="width: 30px; height: auto; background-color: white;" class="p-1">
+                <i class="fa-solid fa-rotate w-100 h-auto"></i>
+              </button>
+            </ng-container>
             <div class="mb-3 mt-3">
               <mat-form-field class="w-100">
                 <mat-label>Imagem:</mat-label>
@@ -54,10 +58,9 @@
             </div>
             
             <div class="btn-center mb-3 mt-3">
-              <button mat-flat-button class="btn-1" (click)="viewBack()" color="warn">{{ is_front ? 'trás' : 'frente' }} </button>
-              <button mat-raised-button color="warn" class="btn-1" (click)="goToForm()">Voltar</button>
-              <button mat-raised-button color="primary" class="btn-1" (click)="save()">Adicionar</button>
-              <button mat-flat-button class="btn-1" (click)="openlist()" color="primary">Lista</button>
+              <button mat-button class="btn-1" (click)="goToForm()">Voltar</button>
+              <button mat-raised-button color="warn" class="btn-1" (click)="openlist()">Ver Lista</button>
+              <button mat-raised-button color="accent text-light" class="btn-1" (click)="save()">Adicionar</button>
             </div>
           </form>
         </mat-card-content>
