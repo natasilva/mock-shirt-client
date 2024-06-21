@@ -37,7 +37,8 @@ export class ViewComponent implements OnInit {
   ) {
     this.estimateForm = this.formBuilder.group({
       quantity: [0, null],
-      // logoColorsQuantity: [0, null],
+      logoColorsQuantity: [0, null],
+      sleeveLogo: [false, null],
       total_value: [0, null],
       material: [null, Validators.required],
       color: [null, Validators.required],
@@ -90,7 +91,7 @@ export class ViewComponent implements OnInit {
         back: this.base64ToUrl(item.back)
       }));
 
-      this.estimateForm.patchValue({ color: this.data.color, material: this.data.material });
+      this.estimateForm.patchValue({ color: this.data.color, material: this.data.material, logoColorsQuantity: this.data.logoColorsQuantity, sleeveLogo: this.data.sleeveLogo });
       this.cd.detectChanges();
     }
   }

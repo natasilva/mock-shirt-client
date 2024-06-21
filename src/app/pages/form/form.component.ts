@@ -115,10 +115,11 @@ export class FormComponent implements OnInit {
         const data = {
           color: this.form.get('color').value.name,
           material: this.form.get('material').value.name,
-          logoColorsQuantity: this.form.get('logoColorsQuantity').value
+          logoColorsQuantity: this.form.get('logoColorsQuantity').value,
+          sleeveLogo: this.form.get('sleeveLogo').value
         }
 
-        this.navigationService.navigate(['/view'], { state: { data: { shirts: [...response], ...data  } } })
+        this.navigationService.navigate(['/view'], { state: { data: { shirts: [...response], ...data  }}})
       },
       error: (error) => {
         console.error('Erro ao processar a camiseta:', error);
