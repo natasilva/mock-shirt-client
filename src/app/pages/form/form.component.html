@@ -1,81 +1,102 @@
-<div class="container mb-5">
-  <div class="row justify-content-center align-items-center mt-5" style="height: 100vh">
-    <div class="col-md-6">
-      <mat-card class="rounded-4">
-        <mat-card-header class="d-flex justify-content-center">
-          <link rel="icon" type="image/x-icon" href="assets/pro-art-logo.png">
-          <img class="my-4" style="width: 120px;" src="assets/pro-art-logo.png" alt="Mock-Shirt">
-          <!-- <mat-card-title class="primary-text">Mock-Shirt</mat-card-title> -->
-        </mat-card-header>
-        <mat-card-content>
-          <form [formGroup]="form" (ngSubmit)="goToView()">
-            <div class="mb-3">
-              <mat-form-field class="w-100">
-                <mat-label>Malha</mat-label>
-                <mat-select id="material" formControlName="material">
-                  <mat-option>Selecione a malha</mat-option>
-                  <mat-option *ngFor="let material of materials$ | async" [value]="material">{{ material.name }}</mat-option>
-                </mat-select>
-                <mat-error *ngIf="form.get('material').touched && form.get('material').invalid">
-                  Este campo é obrigatório!
-                </mat-error>
-              </mat-form-field>
+<div class="w-100 h-auto mb-5 mt-5">
+  <div class="w-100 form d-flex justify-content-center align-items-center">
+    <mat-card class="rounded-4">
+      <mat-card-header class="d-flex justify-content-center">
+        <link rel="icon" type="image/x-icon" href="assets/pro-art-logo.png">
+        <img class="my-4" style="width: 120px;" src="assets/pro-art-logo.png" alt="Mock-Shirt">
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="goToView()">
+          <div class="mb-3">
+            <mat-form-field class="w-100">
+              <mat-label>Malha</mat-label>
+              <mat-select id="material" formControlName="material">
+                <mat-option>Selecione a malha</mat-option>
+                <mat-option *ngFor="let material of materials$ | async" [value]="material">{{ material.name }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.get('material').touched && form.get('material').invalid" class="text-center-error">
+                {{ getErrorMessage('material') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div class="mb-2">
+            <mat-form-field class="w-100">
+              <mat-label>Cor</mat-label>
+              <mat-select id="color" formControlName="color">
+                <mat-option>Selecione a cor</mat-option>
+                <mat-option *ngFor="let color of colors$ | async" [value]="color">{{ color.name }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.get('color').touched && form.get('color').invalid" class="text-center-error">
+                {{ getErrorMessage('color') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div class="mb-4">
+            <label for="frontLogo" class="form-label">Logo (peito):</label>
+            <input type="file" id="frontLogo" class="form-control" (change)="onFileChange($event, 'frontLogo')">
+            <div *ngIf="form.get('frontLogo').invalid && form.get('frontLogo').touched" class="text-danger text-center-error">
+              {{ getErrorMessage('frontLogo') }}
             </div>
-
-            <div class="mb-2">
-              <mat-form-field class="w-100">
-                <mat-label>Cor</mat-label>
-                <mat-select id="color" formControlName="color">
-                  <mat-option>Selecione a cor</mat-option>
-                  <mat-option *ngFor="let color of colors$ | async" [value]="color">{{ color.name }}</mat-option>
-                </mat-select>
-                <mat-error *ngIf="form.get('color').touched && form.get('color').invalid">
-                  Este campo é obrigatório!
-                </mat-error>
-              </mat-form-field>
+          </div>
+          
+          <div class="mb-4">
+            <label for="backLogo" class="form-label">Logo (costas):</label>
+            <input type="file" id="backLogo" class="form-control" (change)="onFileChange($event, 'backLogo')">
+            <div *ngIf="form.get('backLogo').invalid && form.get('backLogo').touched" class="text-danger text-center-error">
+              {{ getErrorMessage('backLogo') }}
             </div>
-
+          </div>
+          
+          <ng-container *ngIf="form.get('sleeveLogo').value">
             <div class="mb-4">
-              <label for="logoUpload" class="form-label">Logo:</label>
-              <input type="file" id="logoUpload" class="form-control" (change)="onFileChange($event)">
-              <div *ngIf="form.get('file').invalid && form.get('file').touched" class="text-danger">
-                <div *ngIf="form.get('file').errors?.required">
-                  Formato de arquivo inválido. Aceito apenas jpg e png.
-                </div>
+              <label for="leftSleeveLogo" class="form-label">Logo (manga esquerda):</label>
+              <input type="file" id="leftSleeveLogo" class="form-control" (change)="onFileChange($event, 'leftSleeveLogo')">
+              <div *ngIf="form.get('leftSleeveLogo').invalid && form.get('leftSleeveLogo').touched" class="text-danger text-center-error">
+                {{ getErrorMessage('leftSleeveLogo') }}
               </div>
             </div>
-
+            
             <div class="mb-4">
-              <label class="form-label">Logo na Manga:</label><br>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" [value]="true" formControlName="sleeveLogo" id="simRadio" value="true">
-                <label class="form-check-label" for="simRadio">Sim</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" [value]="false" formControlName="sleeveLogo" id="naoRadio" value="false" checked>
-                <label class="form-check-label" for="naoRadio">Não</label>
-              </div>
-              <div *ngIf="form.get('sleeveLogo').touched && form.get('sleeveLogo').invalid" class="text-danger">
-                Este campo é obrigatório.
+              <label for="rightSleeveLogo" class="form-label">Logo (manga direita):</label>
+              <input type="file" id="rightSleeveLogo" class="form-control" (change)="onFileChange($event, 'rightSleeveLogo')">
+              <div *ngIf="form.get('rightSleeveLogo').invalid && form.get('rightSleeveLogo').touched" class="text-danger text-center-error">
+                {{ getErrorMessage('rightSleeveLogo') }}
               </div>
             </div>
-
-            <div class="mb-2">
-              <label for="logoColorsQuantity" class="form-label">Quantidade de cores na logo:</label>
-              <div class="d-flex align-items-center">
-                <div class="input-group" style="width: 30%;">
-                  <button class="btn btn-outline-secondary" type="button" (click)="decreaseQuantity()">-</button>
-                  <input type="number" id="quantidadeLogos" class="form-control text-center" formControlName="logoColorsQuantity" readonly>
-                  <button class="btn btn-outline-secondary" type="button" (click)="increaseQuantity()">+</button>
-                </div>
+          </ng-container>
+          
+          <div class="mb-4">
+            <label class="form-label">Logo na Manga:</label><br>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" [value]="true" formControlName="sleeveLogo" id="simRadio" value="true">
+              <label class="form-check-label" for="simRadio">Sim</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" [value]="false" formControlName="sleeveLogo" id="naoRadio" value="false" checked>
+              <label class="form-check-label" for="naoRadio">Não</label>
+            </div>
+            <div *ngIf="form.get('sleeveLogo').touched && form.get('sleeveLogo').invalid" class="text-danger text-center-error">
+              {{ getErrorMessage('sleeveLogo') }}
+            </div>
+          </div>
+          
+          <div class="mb-2">
+            <label for="logoColorsQuantity" class="form-label">Quantidade de cores na logo:</label>
+            <div class="d-flex align-items-center">
+              <div class="input-group" style="width: 30%;">
+                <button class="btn btn-outline-secondary" type="button" (click)="decreaseQuantity()">-</button>
+                <input type="number" id="quantidadeLogos" class="form-control text-center" formControlName="logoColorsQuantity" readonly>
+                <button class="btn btn-outline-secondary" type="button" (click)="increaseQuantity()">+</button>
               </div>
             </div>
-            <mat-card-actions class="d-flex justify-content-center">
-              <button mat-flat-button color="primary" class="btn-lg rounded-pill px-4 mt-2" type="submit">Gerar</button>
-            </mat-card-actions>
-          </form>
-        </mat-card-content>
-      </mat-card>
-    </div>
+          </div>
+          <mat-card-actions class="d-flex justify-content-center">
+            <button mat-flat-button color="primary" class="btn-lg rounded-pill px-4 mt-2" type="submit">Gerar</button>
+          </mat-card-actions>
+        </form>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>

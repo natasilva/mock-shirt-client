@@ -1,7 +1,3 @@
-.container {
-  height: 100vh;
-}
-
 mat-card {
   width: 100%;
   max-width: 500px;
@@ -19,4 +15,8 @@ mat-card-title {
   font-size: 26px; 
   font-weight: bold;
   text-align: center; 
+}
+
+.text-center-error {
+  text-align: start;
 }
